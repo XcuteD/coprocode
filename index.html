@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css" type="text/css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.1/css/ion.rangeSlider.min.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.1/js/ion.rangeSlider.min.js"></script>
+    <title>IpoCalc</title>
+</head>
+<body>
+    <div class="ipoCalc">
+        
+        <div class="ipoCalc-header">
+            <h1>Ипотечный калькулятор</h1>
+        </div>
+
+        <div class="ipoCalc-body">
+
+            <div class="ipoCalc-input">
+
+                <div class="ipoCalc-apartments">
+                    <span>Тип квартиры</span>
+                    <div class="ipoCalc-apartments__type">
+                        <div class="ipoCalc-apartments__item studio activeApartment">студия</div>
+                        <div class="ipoCalc-apartments__item one-room">1-комн.</div>
+                        <div class="ipoCalc-apartments__item two-room">2-комн.</div>
+                        <div class="ipoCalc-apartments__item three-room">3-комн.</div>
+                    </div>
+                </div>
+
+                <div class="ipoCalc-downPayment" >
+                    <span class="options">Первый взнос</span>
+                    <div class="ipoCalc-downPayment__graph">
+                        <input type="text" class="downPayment-slider" name="my_range" value="" />
+                    </div>
+                </div>
+
+                <div class="ipoCalc-creditTerm" >
+                    <span class="options">Срок кредита</span>
+                    <div class="ipoCalc-creditTerm__graph">
+                        <input type="text" class="creditTerm-slider" name="my_range" value="" />
+                    </div>
+                </div>
+
+                <div class="ipoCalc-interestRate" >
+                    <span class="options">Проц. ставка</span>
+                    <div class="ipoCalc-interestRate__graph">
+                        <input type="text" class="interestRate-slider" name="my_range" value="" />
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="ipoCalc-result">
+                <h2>Итого:</h2>
+                    <div class="ipoCalc-monthlyPayment">
+                        <span>Ежемесячный платеж:</span>
+                        <div class="ipoCalc-monthlyPayment__result"></div>
+                    </div>
+                    <div class="ipoCalc-creditAmount">
+                        <span>Сумма кредита:</span>
+                        <div class="ipoCalc-creditAmount__result"></div>
+                    </div>
+            </div>
+        </div>
+
+    </div>
+    <script src="./script.js"></script>
+</body>
+</html>

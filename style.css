@@ -1,0 +1,126 @@
+.ipoCalc-result {
+    background-color: #2d2d2d;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 15%;
+    color: aliceblue;
+}
+.ipoCalc {
+    width: 70%;
+    padding-left: 15%;
+}
+
+.ipoCalc-body {
+    display: flex;
+    justify-content: space-between;
+}
+
+.ipoCalc-header {
+    display: flex;
+    justify-content: center;
+}
+.ipoCalc-apartments__type {
+    display: flex;
+    justify-content: space-around;
+    flex-grow: 10;
+}
+.ipoCalc-apartments__item {
+    padding: 10px 20px 10px 20px;
+}
+.ipoCalc-apartments {
+    display: flex;
+    justify-content: space-between;
+}
+
+.ipoCalc-input {
+    display: flex;
+    flex-grow: 7;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-right: 2%;
+}
+
+.ipoCalc-result {
+    flex-grow: 3;
+}
+
+.ipoCalc-downPayment {
+    display: flex;
+    justify-content: space-between;
+}
+.options {
+    padding-top: 20px;
+}
+
+.ipoCalc-creditTerm {
+    display: flex;
+    justify-content: space-between;
+}
+
+.ipoCalc-interestRate {
+    display: flex;
+    justify-content: space-between;
+}
+
+.ipoCalc-downPayment__graph {
+    flex-grow: 10;
+}
+
+.ipoCalc-creditTerm__graph {
+    flex-grow: 10;
+}
+
+.ipoCalc-interestRate__graph {
+    flex-grow: 10;
+}
+
+span {
+    flex-grow:1;
+    align-self: center;
+}
+
+.ipoCalc-monthlyPayment__result {
+    background-color: aliceblue;
+    height: 30px;
+    width: 150px;
+}
+.ipoCalc-creditAmount__result {
+    background-color: aliceblue;
+    height: 30px;
+    width: 150px;
+}
+.ipoCalc-monthlyPayment {
+    display: flex;
+    justify-content: space-around;
+    padding: 0px 40px 0px 40px;
+}
+.ipoCalc-creditAmount {
+    display: flex;
+    justify-content: space-around;
+    padding: 0px 40px 20px 40px;
+}
+h2 {
+    padding: 0px 40px 0px 40px;
+}
+
+.activeApartment {
+    background-color: #ed5565;
+}
+
+.ipoCalc-monthlyPayment__result {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    text-indent: 10px;
+    color: black;
+}
+
+.ipoCalc-creditAmount__result {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    justify-content: flex-start;
+    text-indent: 10px;
+    color: black;
+}
