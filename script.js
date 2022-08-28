@@ -6,7 +6,7 @@ let apartmentPrice = 1000000;   //Стоимость апартаментов
 
 //Функция рассчета платежа получает 4 аргумента в соответствии с теми переменными, которые мы определили
 function printResult(dP, cT, iR, aP) {
-    console.log(dP, cT, iR, aP)
+
     let monthlyPayment; //локальная переменная, в которую мы будем записывать данные по месячному платежу
     let creditAmount; //локальная переменная, в которую мы будем записывать данные по сумме кредита
     let annuityRatio;
@@ -22,53 +22,18 @@ function printResult(dP, cT, iR, aP) {
     $('.ipoCalc-creditAmount__result').text(new Intl.NumberFormat('ru-RU').format(Math.trunc(creditAmount)) + ' ₽');
 }
 
-//Слайдер первоначального взноса
-$(".downPayment-slider").ionRangeSlider({
-    type: "single",
-    min: 0,
-    max: apartmentPrice,
-    from: downPayment,
-    grid: false,
-    postfix: " ₽",
-    //добавляем прослушку изменения позиции слайдера
-    onChange: function (data) {
-        downPayment = data.from; //при сдвиге слайдера обновляем глобальную переменную с первоначальным взносом
-        //при сдвиге слайдера запускаем функцию вычисления и передаем необходимы аргументы
+$('.ipoCalc-slider').each(function () {
+    $(this).ionRangeSlider({
+      grid: false,
+      onChange: function (data) {
+        if (this.postfix == ' ₽') downPayment = data.from;
+        else if (this.postfix == ' лет') creditTerm = data.from;
+        else if (this.postfix == ' %') interestRate = data.from;
         printResult(downPayment, creditTerm, interestRate, apartmentPrice);
-    }
-});
+      }
+    });
+  })
 
-//Слайдер срока кредитования
-$(".creditTerm-slider").ionRangeSlider({
-    type: "single",
-    min: 0,
-    max: 40,
-    from: creditTerm,
-    from_min: 1,
-    grid: false,
-    postfix: " лет",
-    onChange: function (data) {
-        creditTerm = data.from; //при сдвиге слайдера обновляем глобальную переменную со сроком кредитования
-        //при сдвиге слайдера запускаем функцию вычисления и передаем необходимы аргументы
-        printResult(downPayment, creditTerm, interestRate, apartmentPrice);
-    }
-});
-
-//Слайдер процентной ставки
-$(".interestRate-slider").ionRangeSlider({
-    type: "single",
-    min: 0,
-    max: 40,
-    from: interestRate,
-    from_min: 1,
-    grid: false,
-    postfix: " %",
-    onChange: function (data) {
-        interestRate = data.from; //при сдвиге слайдера обновляем глобальную переменную с процентной ставкой
-        //при сдвиге слайдера запускаем функцию вычисления и передаем необходимы аргументы
-        printResult(downPayment, creditTerm, interestRate, apartmentPrice);
-    }
-});
 
 
 //создаем переменную для доступа к параметрам слайдера

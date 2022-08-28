@@ -24,31 +24,51 @@
                 <div class="ipoCalc-apartments">
                     <span>Тип квартиры</span>
                     <div class="ipoCalc-apartments__type">
-                        <div class="ipoCalc-apartments__item studio activeApartment">студия</div>
-                        <div class="ipoCalc-apartments__item one-room">1-комн.</div>
-                        <div class="ipoCalc-apartments__item two-room">2-комн.</div>
-                        <div class="ipoCalc-apartments__item three-room">3-комн.</div>
+                        <div class="ipoCalc-apartments__item studio activeApartment" data-price="1000000">студия</div>
+                        <div class="ipoCalc-apartments__item one-room" data-price="2500000">1-комн.</div>
+                        <div class="ipoCalc-apartments__item two-room" data-price="4000000">2-комн.</div>
+                        <div class="ipoCalc-apartments__item three-room" data-price="6000000">3-комн.</div>
                     </div>
                 </div>
 
                 <div class="ipoCalc-downPayment" >
                     <span class="options">Первый взнос</span>
                     <div class="ipoCalc-downPayment__graph">
-                        <input type="text" class="downPayment-slider" name="my_range" value="" />
+                        <input type="text" class="ipoCalc-slider downPayment-slider" 
+                            name="downPayment" 
+                            value="200000" 
+                            data-min="0"
+                            data-max="1000000"
+                            data-postfix=" ₽"
+                        />
                     </div>
                 </div>
 
                 <div class="ipoCalc-creditTerm" >
                     <span class="options">Срок кредита</span>
                     <div class="ipoCalc-creditTerm__graph">
-                        <input type="text" class="creditTerm-slider" name="my_range" value="" />
+                        <input type="text" class="ipoCalc-slider creditTerm-slider" 
+                            name="creditTerm" 
+                            value="5" 
+                            data-min="0"
+                            data-from-min="1"
+                            data-max="40"
+                            data-postfix=" лет"
+                        />
                     </div>
                 </div>
 
                 <div class="ipoCalc-interestRate" >
                     <span class="options">Проц. ставка</span>
                     <div class="ipoCalc-interestRate__graph">
-                        <input type="text" class="interestRate-slider" name="my_range" value="" />
+                        <input type="text" class="ipoCalc-slider interestRate-slider" 
+                            name="interestRate"
+                            value="7" 
+                            data-min="0"
+                            data-from-min="1"
+                            data-max="40"
+                            data-postfix=" %"
+                        />
                     </div>
                 </div>
 
