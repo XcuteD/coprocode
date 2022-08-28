@@ -26,9 +26,6 @@ $('.ipoCalc-slider').each(function () {
     $(this).ionRangeSlider({
       grid: false,
       onChange: function (data) {
-        if (this.postfix == ' ₽') downPayment = data.from;
-        else if (this.postfix == ' лет') creditTerm = data.from;
-        else if (this.postfix == ' %') interestRate = data.from;
         printResult(downPayment, creditTerm, interestRate, apartmentPrice);
       }
     });
