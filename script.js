@@ -7,10 +7,15 @@ let apartmentPrice = 1000000;   //Стоимость апартаментов
 //Функция рассчета платежа получает 4 аргумента в соответствии с теми переменными, которые мы определили
 function printResult(dP, cT, iR, aP) {
     console.log(dP, cT, iR, aP)
-    let monthlyPayment = 0; //локальная переменная, в которую мы будем записывать данные по месячному платежу
-    let creditAmount = 0; //локальная переменная, в которую мы будем записывать данные по сумме кредита
-    monthlyPayment = ( (aP - dP) / cT * (iR / 100 + 1) ) / 12; //условный рассчет месячного платежа
-    creditAmount = (aP - dP) * (((iR / 100) * cT) + 1); //условный рассчет суммы по кредиту
+    let monthlyPayment; //локальная переменная, в которую мы будем записывать данные по месячному платежу
+    let creditAmount; //локальная переменная, в которую мы будем записывать данные по сумме кредита
+    let annuityRatio;
+
+    cT = cT * 12; //срок кредита в месяцах
+    iR = iR / 100 / 12; //месячная процентная ставка
+    annuityRatio =  iR * Math.pow( 1 + iR, cT ) / ( Math.pow( 1 + iR, cT) - 1 ); // рассчет коэффициента аннуитета
+    monthlyPayment = annuityRatio * (aP - dP); //рассчет месячного платежа
+    creditAmount = monthlyPayment * cT; //рассчет общей суммы кредита
     //обращаемся к форме вывода месячного платежа и помещаем в нее отформатированные данные (с отброшенными десятыми долями и приведенное к денежному формату)
     $('.ipoCalc-monthlyPayment__result').text(new Intl.NumberFormat('ru-RU').format(Math.trunc(monthlyPayment)) + ' ₽');
     //обращаемся к форме вывода суммы кредита и помещаем в нее отформатированные данные (с отброшенными десятыми долями и приведенное к денежному формату)
@@ -55,6 +60,7 @@ $(".interestRate-slider").ionRangeSlider({
     min: 0,
     max: 40,
     from: interestRate,
+    from_min: 1,
     grid: false,
     postfix: " %",
     onChange: function (data) {
@@ -81,7 +87,7 @@ $(".ipoCalc-apartments__item").click(function() {
     }
     //аналогично с однокомнатной
     else if ($(this).hasClass('one-room')) {
-        apartmentPrice = 2000000;
+        apartmentPrice = 2500000;
         downPaymentSlider.update({max: apartmentPrice});
     }
     //аналогично с двухкомнатной
