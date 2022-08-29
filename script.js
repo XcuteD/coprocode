@@ -22,6 +22,12 @@ function printResult(dP, cT, iR, aP) {
     $('.ipoCalc-creditAmount__result').text(new Intl.NumberFormat('ru-RU').format(Math.trunc(creditAmount)) + ' ₽');
 }
 
+$('.ipoCalc-slider').change(function () {
+    if($(this).hasClass("downPayment-slider")) downPayment = this.value;
+    else if($(this).hasClass("creditTerm-slider")) creditTerm = this.value;
+    else if($(this).hasClass("interestRate-slider")) interestRate = this.value;
+});
+
 $('.ipoCalc-slider').each(function () {
     $(this).ionRangeSlider({
       grid: false,
@@ -29,9 +35,7 @@ $('.ipoCalc-slider').each(function () {
         printResult(downPayment, creditTerm, interestRate, apartmentPrice);
       }
     });
-  })
-
-
+});
 
 //создаем переменную для доступа к параметрам слайдера
 let downPaymentSlider = $(".downPayment-slider").data("ionRangeSlider"); 
