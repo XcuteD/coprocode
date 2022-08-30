@@ -27,6 +27,7 @@ $('.ipoCalc-slider').each(function () {
             prettify: yearsEndCheck,
             onChange: function (data) {
                 creditTerm = data.from;
+                printResult(downPayment, creditTerm, interestRate, apartmentPrice);
             }
         });
     }
@@ -43,7 +44,10 @@ $('.ipoCalc-slider').each(function () {
             },
           });
     }
+    
 });
+
+
 
 $(".ipoCalc-apartments__item").click(function() {
     $(".activeApartment").removeClass('activeApartment');
