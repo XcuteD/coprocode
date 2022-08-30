@@ -1,71 +1,48 @@
-//Начальные данные для слайдера
-let downPayment = 200000;       //Первый взнос
-let creditTerm = 5;             //Срок кредита
-let interestRate = 7;           //Процентная ставка
-let apartmentPrice = 1000000;   //Стоимость апартаментов
+'use strict'
+import {yearsEndCheck} from './yearsEndCheck.js'
 
-//Функция рассчета платежа получает 4 аргумента в соответствии с теми переменными, которые мы определили
-function printResult(dP, cT, iR, aP) {
+let downPayment = $(".downPayment-slider").attr('value');                                       //Первый взнос
+let creditTerm = $(".creditTerm-slider").attr('value');                                         //Срок кредита
+let interestRate = $(".interestRate-slider").attr('value');                                     //Процентная ставка
+let apartmentPrice = $(".ipoCalc-apartments__item").attr('data-price');                         //Стоимость апартаментов
 
-    let monthlyPayment; //локальная переменная, в которую мы будем записывать данные по месячному платежу
-    let creditAmount; //локальная переменная, в которую мы будем записывать данные по сумме кредита
+function printResult(dP, cT, iR, aP) { 
+    let monthlyPayment;
+    let creditAmount;
     let annuityRatio;
 
-    cT = cT * 12; //срок кредита в месяцах
-    iR = iR / 100 / 12; //месячная процентная ставка
-    annuityRatio =  iR * Math.pow( 1 + iR, cT ) / ( Math.pow( 1 + iR, cT) - 1 ); // рассчет коэффициента аннуитета
-    monthlyPayment = annuityRatio * (aP - dP); //рассчет месячного платежа
-    creditAmount = monthlyPayment * cT; //рассчет общей суммы кредита
-    //обращаемся к форме вывода месячного платежа и помещаем в нее отформатированные данные (с отброшенными десятыми долями и приведенное к денежному формату)
+    cT = cT * 12;                                                                               //Cрок кредита в месяцах
+    iR = iR / 100 / 12;                                                                         //Месячная процентная ставка
+    annuityRatio =  iR * Math.pow( 1 + iR, cT ) / ( Math.pow( 1 + iR, cT) - 1 );                //Рассчет коэффициента аннуитета
+    monthlyPayment = annuityRatio * (aP - dP);                                                  //Рассчет месячного платежа
+    creditAmount = monthlyPayment * cT;                                                         //Рассчет общей суммы кредита
     $('.ipoCalc-monthlyPayment__result').text(new Intl.NumberFormat('ru-RU').format(Math.trunc(monthlyPayment)) + ' ₽');
-    //обращаемся к форме вывода суммы кредита и помещаем в нее отформатированные данные (с отброшенными десятыми долями и приведенное к денежному формату)
     $('.ipoCalc-creditAmount__result').text(new Intl.NumberFormat('ru-RU').format(Math.trunc(creditAmount)) + ' ₽');
 }
-
-$('.ipoCalc-slider').change(function () {
-    if($(this).hasClass("downPayment-slider")) downPayment = this.value;
-    else if($(this).hasClass("creditTerm-slider")) creditTerm = this.value;
-    else if($(this).hasClass("interestRate-slider")) interestRate = this.value;
-});
 
 $('.ipoCalc-slider').each(function () {
     $(this).ionRangeSlider({
       grid: false,
-      onChange: function (data) {
+      onStart: function (data) {
         printResult(downPayment, creditTerm, interestRate, apartmentPrice);
+      },
+      onChange: function (data) {
+        if(data.input.hasClass("downPayment-slider")) downPayment = data.from;
+        else if(data.input.hasClass("creditTerm-slider")) { 
+            $('.ipoCalc-creditTerm__graph').find('.irs-single').text(yearsEndCheck(String(data.from)));
+            creditTerm = data.from;
+        }
+        else if(data.input.hasClass("interestRate-slider")) interestRate = data.from;
+        printResult(downPayment, creditTerm, interestRate, apartmentPrice);                     //Функция рассчета платежа
       }
     });
 });
 
-//создаем переменную для доступа к параметрам слайдера
-let downPaymentSlider = $(".downPayment-slider").data("ionRangeSlider"); 
-//включаем прослушку клика по вкладкам с апартаментами (студия\1-ком\2-ком\3-ком)
 $(".ipoCalc-apartments__item").click(function() {
-    //при клике по любой из квартир удаляем класс, выделяющий красным у всех
     $(".ipoCalc-apartments__item").removeClass('activeApartment');
-    //и добавляем класс выделения на тот, по которому произошел клик
     $(this).addClass('activeApartment');
-    //если кликнули по студии, то устанавливаем переменную с ценой апартаментов на 1 000 000,
-    //а так же обновляем данные первого слайдера о максимальной сумме первоначального взноса
-    if ($(this).hasClass('studio')) {
-        apartmentPrice = 1000000;
-        downPaymentSlider.update({max: apartmentPrice});
-    }
-    //аналогично с однокомнатной
-    else if ($(this).hasClass('one-room')) {
-        apartmentPrice = 2500000;
-        downPaymentSlider.update({max: apartmentPrice});
-    }
-    //аналогично с двухкомнатной
-    else if ($(this).hasClass('two-room')) {
-        apartmentPrice = 4000000;
-        downPaymentSlider.update({max: apartmentPrice});
-    }
-    //аналогично с трехкомнатной
-    else if ($(this).hasClass('three-room')) {
-        apartmentPrice = 6000000;
-        downPaymentSlider.update({max: apartmentPrice});
-    }
-    //отрисовываем изменения после каждого перехода по вкладкам
+    apartmentPrice = $(this).attr('data-price');
+    let downPaymentSlider = $(".downPayment-slider").data("ionRangeSlider"); 
+    downPaymentSlider.update({max: apartmentPrice});
     printResult(downPayment, creditTerm, interestRate, apartmentPrice)
-})
+});

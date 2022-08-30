@@ -24,10 +24,10 @@
                 <div class="ipoCalc-apartments">
                     <span>Тип квартиры</span>
                     <div class="ipoCalc-apartments__type">
-                        <div class="ipoCalc-apartments__item studio activeApartment" data-price="1000000">студия</div>
-                        <div class="ipoCalc-apartments__item one-room" data-price="2500000">1-комн.</div>
-                        <div class="ipoCalc-apartments__item two-room" data-price="4000000">2-комн.</div>
-                        <div class="ipoCalc-apartments__item three-room" data-price="6000000">3-комн.</div>
+                        <button class="ipoCalc-apartments__item studio activeApartment" data-price="1000000">студия</button>
+                        <button class="ipoCalc-apartments__item one-room" data-price="2500000">1-комн.</button>
+                        <button class="ipoCalc-apartments__item two-room" data-price="4000000">2-комн.</button>
+                        <button class="ipoCalc-apartments__item three-room" data-price="6000000">3-комн.</button>
                     </div>
                 </div>
 
@@ -40,6 +40,7 @@
                             data-min="0"
                             data-max="1000000"
                             data-postfix=" ₽"
+                            data-step="10000"
                         />
                     </div>
                 </div>
@@ -53,7 +54,7 @@
                             data-min="0"
                             data-from-min="1"
                             data-max="40"
-                            data-postfix=" лет"
+
                         />
                     </div>
                 </div>
@@ -78,16 +79,17 @@
                 <h2>Итого:</h2>
                     <div class="ipoCalc-monthlyPayment">
                         <span>Ежемесячный платеж:</span>
-                        <div class="ipoCalc-monthlyPayment__result"></div>
+                        <output class="ipoCalc-monthlyPayment__result"></output>
                     </div>
                     <div class="ipoCalc-creditAmount">
                         <span>Сумма кредита:</span>
-                        <div class="ipoCalc-creditAmount__result"></div>
+                        <output class="ipoCalc-creditAmount__result"></output>
                     </div>
             </div>
         </div>
 
     </div>
-    <script src="./script.js"></script>
+    <script type="module" src="./script.js"></script>
+    <script type="module" src="./yearsEndCheck.js"></script>
 </body>
 </html>
