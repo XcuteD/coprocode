@@ -1,6 +1,7 @@
 'use strict'
 
 export function yearsEndCheck(years, i = 1) {
+    years = String(years);
     if ( 10 <= years && years <= 20 ) return years + ' лет'
     else {
         switch (years[i]) {

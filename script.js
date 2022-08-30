@@ -21,25 +21,32 @@ function printResult(dP, cT, iR, aP) {
 }
 
 $('.ipoCalc-slider').each(function () {
-    $(this).ionRangeSlider({
-      grid: false,
-      onStart: function (data) {
-        printResult(downPayment, creditTerm, interestRate, apartmentPrice);
-      },
-      onChange: function (data) {
-        if(data.input.hasClass("downPayment-slider")) downPayment = data.from;
-        else if(data.input.hasClass("creditTerm-slider")) { 
-            $('.ipoCalc-creditTerm__graph').find('.irs-single').text(yearsEndCheck(String(data.from)));
-            creditTerm = data.from;
-        }
-        else if(data.input.hasClass("interestRate-slider")) interestRate = data.from;
-        printResult(downPayment, creditTerm, interestRate, apartmentPrice);                     //Функция рассчета платежа
-      }
-    });
+    if($(this).hasClass("creditTerm-slider")) {
+        $('.creditTerm-slider').ionRangeSlider({
+            grid: false,
+            prettify: yearsEndCheck,
+            onChange: function (data) {
+                creditTerm = data.from;
+            }
+        });
+    }
+    else {
+        $(this).ionRangeSlider({
+            grid: false,
+            onStart: function (data) {
+              printResult(downPayment, creditTerm, interestRate, apartmentPrice);
+            },
+            onChange: function (data) {
+              if(data.input.hasClass("downPayment-slider")) downPayment = data.from;
+              else if(data.input.hasClass("interestRate-slider")) interestRate = data.from;
+              printResult(downPayment, creditTerm, interestRate, apartmentPrice);                     //Функция рассчета платежа
+            },
+          });
+    }
 });
 
 $(".ipoCalc-apartments__item").click(function() {
-    $(".ipoCalc-apartments__item").removeClass('activeApartment');
+    $(".activeApartment").removeClass('activeApartment');
     $(this).addClass('activeApartment');
     apartmentPrice = $(this).attr('data-price');
     let downPaymentSlider = $(".downPayment-slider").data("ionRangeSlider"); 
